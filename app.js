@@ -12,6 +12,7 @@ d3.json(sampleData).then(function (data) {
     });
 });
 
+//Function to plot Bar Plots
 function getbarPlots(id){
     d3.json(sampleData).then (sampledata =>{
         var resultDatab = sampledata.samples.filter(data => data.id === id)[0];
@@ -23,8 +24,6 @@ function getbarPlots(id){
         var OTU_id = OTU_top.map(d => "OTU " + d);
       // get the top 10 labels for the plot
         var labels =  resultDatab.otu_labels.slice(0,10);
-
-         //console.log(`OTU_labels: ${labels}`)
         var trace = {
              x: sampleValues,
              y: OTU_id,
@@ -50,11 +49,13 @@ function getbarPlots(id){
                  b: 30
              }
             }
+        //Create Bar chart using Plotly
         Plotly.newPlot("bar", data, layout);
 
     });
     };
 
+    //Function to plot pie chart
 function getpiePlots(id){
     d3.json(sampleData).then((sampledata) =>{
         var resultDatap = sampledata.samples.filter(data => data.id === id)[0];
@@ -76,12 +77,12 @@ function getpiePlots(id){
         var layout = {
             title: "Pie Chart of top 10 OTU Ids"
         }
-        // create the bar plot
+        // Create pie plot using plotly
         Plotly.newPlot("pie", data, layout);
     });
 };
 
-
+//Function to plot bubble chart
 function getbubbleChart(id) {
     d3.json(sampleData).then (sampledata =>{
         var resultData = sampledata.samples.filter(data => data.id === id)[0];
@@ -96,16 +97,21 @@ function getbubbleChart(id) {
             },
             text: resultData.otu_labels
         };
+         // create data variable
         var datab=[traceb]
+        // create layout variable to set plots layout
         var layoutb={
             xaxis:{title: "OTU Ids Vs Samples"},
             height: 600,
             width: 1000
         }
+        // Create pie plot using plotly
         Plotly.newPlot("bubble", datab, layoutb);
     });
 
 };
+
+//Function to get Demography data
 
 function getDemoInfo(id){
     d3.json(sampleData).then((data)=> {
@@ -122,6 +128,7 @@ function getDemoInfo(id){
 
 };
 
+//Calling functions when Option change event happens in screen 
 function optionChanged(id){
     getpiePlots(id);
     getbarPlots(id);
@@ -131,6 +138,7 @@ function optionChanged(id){
     buildGauge(id);
 };
 
+//Init Function to populate data and plots when the screen comes up first time
 function init() {
 
     // read the data 

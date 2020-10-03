@@ -1,8 +1,10 @@
 /**
  * BONUS Solution
  * */
-
+// Get the path of the data file and store into a variable
 var sampleData = "./data/samples.json"
+
+//Function to perform buildGauge
 
 function buildGauge(id) {
   // Enter the washing frequency between 0 and 180
